@@ -150,7 +150,7 @@ const MainNavigator = StackNavigator({ //this will be "createStackNavigator" aft
                             />
                         </View>
                         <View style={headerStyles.header__text__box}>
-                            <Text style={headerStyles.headerText}>Main Options</Text>
+                            <Text style={headerStyles.headerText}>Main Options </Text>
                         </View>
                     </View>
                 </View>,
