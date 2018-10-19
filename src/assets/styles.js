@@ -53,6 +53,11 @@ module.exports = StyleSheet.create({
     borderRadius: 35 / 2,
     resizeMode: "contain",
   },
+  drawerIcon: {
+    width: 30,
+    height: 30,
+    marginRight: 25,
+  },
   assetHeaderTitle: {
     height: 50,
     width: 200,

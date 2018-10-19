@@ -1,43 +1,364 @@
-import { StyleSheet, Text, TextInput, View, Image, TouchableHighlight, Alert } from 'react-native';
-import React from "react";
+import React, { Component } from "react";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Image,
+  TouchableHighlight,
+  Alert,
+  ScrollView,
+  WebView,
+  Linking
+} from "react-native";
 import styles from "../assets/styles";
-import supplyChain from "../assets/supplyChain.png";
-import { Button } from "react-native-button";
+import contributeIcon from "../assets/icons/contributeIcon.png";
+import discordIcon from "../assets/icons/discordIcon.png";
+import emailUsIcon from "../assets/icons/emailUsIcon.png";
+import facebookIcon from "../assets/icons/facebookIcon.png";
+import networkIcon from "../assets/icons/networkIcon.png";
+import privacyPolicyIcon from "../assets/icons/privacyPolicyIcon.png";
+import profileIcon from "../assets/icons/profileIcon.png";
+import settingsIcon from "../assets/icons/settingsIcon.png";
+import telegramIcon from "../assets/icons/telegramIcon.png";
+import termsAndConditionsIcon from "../assets/icons/termsAndConditionsIcon.png";
+import twitterIcon from "../assets/icons/twitterIcon.png";
+import versionIcon from "../assets/icons/versionIcon.png";
+import { connect } from "react-redux";
+import firebase from '../constants/Firebase';
+import store from '../store';
 
-export class Settings extends React.Component {
 
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: <View style={localStyles.headerBox}><Text style={localStyles.headerText}>Settings</Text></View>,
-  });
+export class Settings extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  onLogOut = () => {
+
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log("Firebase Sign-out successful.")
+    }).catch(function(error) {
+      // An error happened.
+    })
+
+    account.logout(function() {
+     console.log('hooray im out!')
+    })
 
 
+    // console.log(this.props);
+    // this.props.signOut();
+    this.props.navigation.navigate("OrgRegistration");
+  };
+
+
+  static navigationOptions = ({ navigation }) => {
+    let headerStyles = StyleSheet.create({
+      header__container: {
+        display: "flex",
+        height: 80,
+        alignSelf: "center",
+        flex: 1,
+        alignContent: "center",
+        alignItems: "center",
+        marginTop: 40,
+        paddingBottom: 20
+      },
+      header__container__centeredBox: {
+        height: "100%",
+        alignItems: "center",
+        flexDirection: "row"
+      },
+      header__text__box: {
+        height: "100%",
+        marginBottom: 5,
+        marginLeft: 12
+      },
+      header__image__box: {
+        height: "100%",
+        borderRadius: 100
+      },
+      assetHeaderLogo: {
+        height: 35,
+        width: 35,
+        borderRadius: 50
+      },
+      headerText: {
+        fontFamily: "dinPro",
+        fontSize: 26,
+        alignSelf: "center",
+        fontWeight: "normal",
+        color: "black",
+        textAlign: "center",
+        marginTop: 2
+      }
+    });
+
+
+
+    return {
+      headerTitle: (
+        <View style={headerStyles.header__container}>
+          <TouchableHighlight
+            style={{ justifyContent: "center" }}
+            onPress={() => navigation.navigate("MenuOptions")}
+          >
+            <View style={headerStyles.header__container__centeredBox}>
+              <View style={headerStyles.header__image__box}>
+                <Image
+                  style={headerStyles.assetHeaderLogo}
+                  source={settingsIcon}
+                />
+              </View>
+              <View style={headerStyles.header__text__box}>
+                <Text style={headerStyles.headerText}>Settings</Text>
+              </View>
+            </View>
+          </TouchableHighlight>
+        </View>
+      ),
+      headerRight: <View></View>
+    };
+  };
 
   render() {
     return (
       <View style={styles.container}>
-        <View style={[styles.containerCenter, { paddingTop: 25 }]}>
-          <Text style={localStyles.text}> Setting 1 </Text>
-          <Text style={localStyles.text}> Setting 2 </Text>
-          <Text style={localStyles.text}> Setting 3 </Text>
-          <Text style={localStyles.text}> Setting 4 </Text>
-          <View style={{ flexDirection: 'column', alignItems: 'center', height: 200, width: 500, alignContent: 'space-between', justifyContent: 'space-around' }}>
-            <View style={{ height: 30, width: 100, backgroundColor: "yellow", borderRadius: 5, }}>
-              <Text style={localStyles.buttonText}>Setting 5</Text>
+        <View style={localStyles.container}>
+          <ScrollView>
+            <View style={localStyles.divider}>
+              <View style={localStyles.block}>
+                <Image style={localStyles.block__icon} source={profileIcon} />
+                <View style={localStyles.block__textBlock}>
+                  <Text style={localStyles.title__Text}> Profile </Text>
+                  <View style={localStyles.profileBlock}>
+                    <Text style={localStyles.subInfo__Text}>
+                      {" "}
+                      {this.props.displayName}{" "}
+                    </Text>
+                    <TouchableHighlight onPress={() => this.onLogOut()}>
+                      <View>
+                        <Text style={localStyles.profileBlock__logoutText}>
+                          LOGOUT
+                        </Text>
+                      </View>
+                    </TouchableHighlight>
+                  </View>
+                </View>
+              </View>
             </View>
-            <View style={{ height: 30, width: 100, backgroundColor: "green", borderRadius: 5, }}>
-              <Text style={localStyles.buttonText}>Setting 6</Text>
+            <View style={localStyles.divider}>
+              <View style={localStyles.block}>
+                <Image style={localStyles.block__icon} source={networkIcon} />
+                <View style={localStyles.block__textBlock}>
+                  <Text style={localStyles.title__Text}> Network </Text>
+                  <Text style={localStyles.subInfo__Text}>
+                    {" "}
+                    Ropsten (Test){" "}
+                  </Text>
+                </View>
+              </View>
             </View>
-          </View>
+            <View style={localStyles.divider}>
+              <TouchableHighlight
+                onPress={() => {
+                  Linking.openURL("https://twitter.com/HERC_Hercules");
+                }}
+              >
+                <View style={localStyles.block}>
+                  <Image style={localStyles.block__icon} source={twitterIcon} />
+                  <View style={localStyles.block__textBlock}>
+                    <Text style={localStyles.title__Text}> Twitter </Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <TouchableHighlight
+              onPress={() => {
+                Linking.openURL("https://t.me/joinchat/E_FZdg4HNKlqnxKXEEeYxw");
+              }}
+            >
+              <View style={localStyles.divider}>
+                <View style={localStyles.block}>
+                  <Image style={localStyles.block__icon} source={telegramIcon} />
+                  <View style={localStyles.block__textBlock}>
+                    <Text style={localStyles.title__Text}> Telegram Group</Text>
+                  </View>
+                </View>
+              </View>
+            </TouchableHighlight>
+            <View style={localStyles.divider}>
+              <TouchableHighlight onPress={() => {
+                Linking.openURL("https://www.facebook.com/HERCTOKEN/");
+              }}>
+                <View style={localStyles.block}>
+                  <Image style={localStyles.block__icon} source={facebookIcon} />
+                  <View style={localStyles.block__textBlock}>
+                    <Text style={localStyles.title__Text}> Facebook </Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <TouchableHighlight onPress={() => {
+              Linking.openURL("https://discord.gg/J4a9MY");
+            }}>
+              <View style={localStyles.block}>
+                <Image style={localStyles.block__icon} source={discordIcon} />
+                <View style={localStyles.block__textBlock}>
+                  <Text style={localStyles.title__Text}> Discord </Text>
+                </View>
+              </View>
+            </TouchableHighlight>
+            <Text style={localStyles.sectionHeader}> Support </Text>
+            <View style={localStyles.divider}>
+              <TouchableHighlight onPress={() => {
+                Linking.openURL("mailto:feedback@test.com?subject=Feedback");
+              }}>
+
+                <View style={localStyles.block}>
+                  <Image style={localStyles.block__icon} source={emailUsIcon} />
+                  <View style={localStyles.block__textBlock}>
+                    <Text style={localStyles.title__Text}> Email Us  </Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <View style={localStyles.divider}>
+              <TouchableHighlight
+                onPress={() => {
+                  Linking.openURL("https://tge.herc.one");
+                }}
+              >
+                <View style={localStyles.block}>
+                  <Image
+                    style={localStyles.block__icon}
+                    source={contributeIcon}
+                  />
+                  <View style={localStyles.block__textBlock}>
+                    <Text style={localStyles.title__Text}>
+                      {" "}
+                      Contribute to the TGE{" "}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <View style={localStyles.divider}>
+              <TouchableHighlight
+                onPress={() => {
+                  Linking.openURL("https://herc.one/privacy");
+                }}
+              >
+                <View style={localStyles.block}>
+                  <Image
+                    style={localStyles.block__icon}
+                    source={privacyPolicyIcon}
+                  />
+                  <View style={localStyles.block__textBlock}>
+                    <Text style={localStyles.title__Text}> Privacy Policy</Text>
+                  </View>
+                </View>
+              </TouchableHighlight>
+            </View>
+            <TouchableHighlight
+              onPress={() => {
+                Linking.openURL("https://herc.one/terms");
+              }}
+            >
+              <View style={localStyles.divider}>
+                <View style={localStyles.block}>
+                  <Image
+                    style={localStyles.block__icon}
+                    source={termsAndConditionsIcon}
+                  />
+                  <View style={localStyles.block__textBlock}>
+                    <Text style={localStyles.title__Text}> Terms of Service</Text>
+                  </View>
+                </View>
+              </View>
+            </TouchableHighlight>
+            <View style={localStyles.divider}>
+              <View style={localStyles.block}>
+                <Image style={localStyles.block__icon} source={versionIcon} />
+                <View style={localStyles.block__textBlock}>
+                  <Text style={localStyles.title__Text}> Version </Text>
+                  <Text style={localStyles.subInfo__Text}> Version 0.2.9 </Text>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
         </View>
-      </View>
+      </View >
     );
   }
-};
+}
 
 const localStyles = StyleSheet.create({
-  headerBox: {
+  sectionHeader: {
+    color: "gold",
+    fontWeight: "normal",
+    fontSize: 15,
+    marginTop: 10,
+    marginBottom: 10
+  },
+  block: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignContent: "center",
     alignItems: "center",
-    flex: 1
+    marginTop: 12,
+    marginBottom: 12
+  },
+  profileBlock: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignContent: "center",
+    alignItems: "center"
+  },
+  profileBlock__logoutText: {
+    color: "red",
+    marginRight: 8,
+    borderColor: "red",
+    borderWidth: 1,
+    padding: 3,
+    borderRadius: 5,
+    textAlign: "center",
+    lineHeight: 20
+  },
+  divider: {
+    borderBottomWidth: 1,
+    borderColor: "#d3d3d3"
+  },
+  block__icon: {
+    flex: 1,
+    height: 22,
+    width: 22,
+    resizeMode: "contain",
+    paddingTop: 4
+  },
+  block__textBlock: {
+    flex: 3,
+    flexDirection: "column"
+    // marginBottom: 2
+  },
+  title__Text: {
+    color: "white",
+    fontSize: 18
+  },
+  subInfo__Text: {
+    color: "gray",
+    fontSize: 10
+  },
+  container: {
+    width: "95%",
+    height: "100%",
+    backgroundColor: "#091141",
+    justifyContent: "flex-start",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5
   },
   headerText: {
     textAlign: "center",
@@ -52,13 +373,21 @@ const localStyles = StyleSheet.create({
     fontWeight: "normal",
     margin: 5,
     fontFamily: "dinPro"
-  },
-  buttonText: {
-    textAlign: "left",
-    fontSize: 22,
-    fontWeight: "normal",
-    margin: 5,
-    fontFamily: "dinPro"
-  },
-})
-export default Settings;
+  }
+});
+
+const mapStateToProps = state => ({
+  // displayName: state.AccountReducers.displayName,
+  // uid: state.AccountReducers.uid
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchAssets: () => dispatch(fetchAssets()),
+  getHercId: () => dispatch(getHercId()),
+  signOut: () => dispatch(signOut())
+  //  fetchData: () => dispatch(fetchData())
+});
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Settings);

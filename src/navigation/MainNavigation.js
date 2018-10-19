@@ -43,6 +43,8 @@ import roundImage from "../assets/round.png"
 import QRCapture from "../screens/QRCapture";
 import QRCapture2 from "../screens/QRCapture2";
 import styles from "../assets/styles";
+import DrawerIcon from "../assets/icons/drawerIcon.png";
+
 
 let headerStyles = StyleSheet.create({
     header__container: {
@@ -166,7 +168,10 @@ const MainNavigator = StackNavigator({ //this will be "createStackNavigator" aft
                 alignSelf: 'center',
 
             },
-            headerRight: <View></View>,
+            headerRight: <TouchableHighlight onPress={() => navigation.navigate("Settings")}>
+            <Image source={DrawerIcon} style={styles.drawerIcon} />
+          </TouchableHighlight>
+          ,
             headerLeft: <TouchableHighlight onPress={() => navigation.goBack()}>
                 <Image source={backArrow} style={styles.backArrow} />
             </TouchableHighlight>
