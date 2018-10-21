@@ -58,7 +58,7 @@ class TransAssetList extends Component {
         fontFamily: "dinPro",
         fontSize: 26,
         alignSelf: "center",
-        fontWeight: "bold",
+        fontWeight: "normal",
         color: "black",
         textAlign: "center",
         marginTop: 2,
@@ -174,7 +174,7 @@ const localStyles = StyleSheet.create({
     height: 50,
     fontSize: 30,
     alignSelf: "center",
-    fontWeight: "bold",
+    fontWeight: "normal",
     color: "black",
     textAlign: "center"
   },

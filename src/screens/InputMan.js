@@ -60,7 +60,7 @@ class InputMan extends Component {
                 fontFamily: "dinPro",
                 fontSize: 26,
                 alignSelf: "center",
-                fontWeight: "bold",
+                fontWeight: "normal",
                 color: "black",
                 textAlign: "center",
                 marginTop: 2,

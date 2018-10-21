@@ -373,7 +373,7 @@ const localStyles = StyleSheet.create({
     textAlign: "center",
     alignSelf: "center",
     fontSize: 26,
-    fontWeight: "bold"
+    fontWeight: "normal"
   },
   text: {
     color: "white",

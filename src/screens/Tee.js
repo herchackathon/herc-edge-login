@@ -71,7 +71,7 @@ class Tee extends Component {
         fontFamily: "dinPro",
         fontSize: 26,
         alignSelf: "center",
-        fontWeight: "bold",
+        fontWeight: "normal",
         color: "black",
         textAlign: "center",
         marginTop: 2,
@@ -101,7 +101,6 @@ class Tee extends Component {
   }
 
   setImage = (imgObj) => {
-    console.log("trying to set the Logo: ", imgObj)
     this.setState({
       Logo: {
         imageString: imgObj.string,
@@ -114,7 +113,6 @@ class Tee extends Component {
 
   _takePic = () => {
     const { navigate } = this.props.navigation;
-    console.log("takingpic")
     navigate('Camera', { setPic: this.setImage })
   }
 
@@ -200,9 +198,9 @@ class Tee extends Component {
 
   render() {
     let Logo;
-    if(this.state.Logo){
+    if (this.state.Logo) {
       Logo = this.state.Logo.uri
-    }else{
+    } else {
       Logo = null
     }
 
@@ -365,12 +363,12 @@ class Tee extends Component {
               <TouchableHighlight onPress={this._pickImage}>
                 <Image style={styles.menuButton} source={uploadPhoto} />
               </TouchableHighlight>
+
+              <TouchableHighlight onPress={() => this._onSubmit()}>
+                <Image style={localStyles.nextButtonContainer} source={next} />
+              </TouchableHighlight>
             </View>
           </ScrollView>
-
-          <TouchableHighlight onPress={() => this._onSubmit()}>
-            <Image style={localStyles.nextButtonContainer} source={next} />
-          </TouchableHighlight>
         </View>
       </View>
     );

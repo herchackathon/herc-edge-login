@@ -37,7 +37,7 @@ module.exports = StyleSheet.create({
     fontFamily: "dinPro",
     fontSize: 22,
     alignSelf: "center",
-    fontWeight: "bold",
+    fontWeight: "normal",
     color: "black",
     textAlign: "center"
   },
