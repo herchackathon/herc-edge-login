@@ -1,5 +1,15 @@
 # [H]ERC Decentralized Application with Identity Powered by Https://Edge.App
 
+## GLOBAL HACKATHON FORK
+
+### How to use this Repo: 
+> - create a branch with your team's name 
+> - design and submit a [HIP](https:/github.com/hercone/hips) 
+> - manage HIPS in Pull Requests in your branch
+> - Create an HRC (HERC Request for Comments) and submit a Proposal
+> - HERC Core and Community Developers will evaluate the proposed standard
+> - the standard or HIP will be merged
+
 ![HERC Wallet](https://i.imgur.com/h0nwznp.png)
 
 
