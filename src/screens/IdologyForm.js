@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Alert, Text, TouchableOpacity } from 'react-native';
-import Loader from '../components/loader';
+import Loader from '../components/Loader';
 import { YellowBox } from 'react-native';
 import { connect } from "react-redux";
 import store from "../store";
